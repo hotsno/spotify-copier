@@ -1,1 +1,64 @@
 @import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-hover: var(--hover);
+  --color-field: var(--field);
+}
+
+:root {
+  --bg: #f6f5f2;
+  --fg: #111110;
+  --muted: #6b6a65;
+  --line: #dcdbd5;
+  --hover: #eeede8;
+  --field: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0b0a;
+    --fg: #ededeb;
+    --muted: #8f8e89;
+    --line: #262624;
+    --hover: #151514;
+  --field: #121211;
+  }
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}

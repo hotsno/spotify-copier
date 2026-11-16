@@ -2,7 +2,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const url = searchParams.get("url");
 
-  const match = url?.match(/track\/([a-zA-Z0-9]+)/);
+  const match = url?.match(/track[/:]([a-zA-Z0-9]+)/);
   if (!match) {
     return Response.json({ error: "Invalid Spotify track URL" }, { status: 400 });
   }
@@ -40,8 +40,10 @@ export async function GET(request: Request) {
     const artist = data.artists.map((a: { name: string }) => a.name).join(", ");
     const title = data.name;
     const album = data.album.name;
+    const cover: string | null = data.album.images?.[0]?.url ?? null;
+    const year: string | null = data.album.release_date?.slice(0, 4) ?? null;
 
-    return Response.json({ artist, title, album });
+    return Response.json({ artist, title, album, cover, year });
   } catch {
     return Response.json({ error: "Internal server error" }, { status: 500 });
   }
